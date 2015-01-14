@@ -76,9 +76,9 @@ function GetChatCommands(ply,text,teamChat)
 	local destination = string.sub(text,7)
 
 	
-	print(command)
+	--print(command)
 	
-	print(destination)
+	--print(destination)
 	
 	if string.lower(command) == "!team" then
 		JoinTeam(ply,command,{destination})
@@ -90,9 +90,5 @@ function GetChatCommands(ply,text,teamChat)
 end
 
 hook.Add("PlayerSay","Grab Chat Commands",GetChatCommands)
-
-
-
-
 
 print("sv_bur_teamselection.lua loaded")
