@@ -1,5 +1,12 @@
 function TeamDamageMod(victim,attacker)
 
+	
+	if victim:HasGodMode() or GetConVarNumber("sbox_godmode") ~= 0 then
+		return false
+	end
+
+	
+	
 	if attacker:IsPlayer() then
 
 		if victim:Team() == attacker:Team() and victim:Team() ~= 1001 then
@@ -9,6 +16,10 @@ function TeamDamageMod(victim,attacker)
 		end
 		
 	end
+		
+
+	
+	
 		
 end
 
