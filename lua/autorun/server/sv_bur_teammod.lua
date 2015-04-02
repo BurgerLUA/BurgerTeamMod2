@@ -31,6 +31,38 @@ end
 
 concommand.Add( "JoinTeam", JoinTeam, TeamAutoComplete, "Join a Team", FCVAR_CLIENTCMD_CAN_EXECUTE )
 
+function ForceTeam(ply,cmd,args)
+	--if ply:IsAdmin() == true or ply:IsSuperAdmin() == true then
+		local victim = player.GetAll()[tonumber(args[1])]
+		local num = tonumber(args[2])
+		
+		if type(num) ~= "number" then return end
+	
+	
+		if not IsValid(victim) then 
+			ply:ChatPrint("INVALID PLAYER")
+			return
+		end
+		
+		if num > 4 or num == 0 then
+			victim:SetTeam(1001)
+		else
+			victim:SetTeam(Base + num)
+		end
+		
+		NotifyTeamChange(victim)
+		
+
+
+		
+		
+	--end
+end
+
+concommand.Add( "ForceTeam", ForceTeam, TeamAutoComplete, "Join a Team", FCVAR_CLIENTCMD_CAN_EXECUTE )
+
+
+
 function NotifyTeamChange(ply)
 
 	--print("Sending Message...")
@@ -44,49 +76,15 @@ end
 
 util.AddNetworkString("TCCS")
 
-function TeamDamageMod(victim,attacker)
-
-	if attacker:IsPlayer() then
-
-		if victim:Team() == attacker:Team() and victim:Team() ~= 1001 then
-		
-			return false
-
-		end
-		
-	end
-		
-end
-
-hook.Add("PlayerShouldTakeDamage","Team Damage Mod", TeamDamageMod )
-
-function TeamchatOverride(listener,talker)
-
-	return true, false
-
-end
-
-hook.Add("PlayerCanHearPlayersVoice","Teamchat Override",TeamchatOverride)
-
 function GetChatCommands(ply,text,teamChat)
-
-	--!team
 
 	local command = string.sub(text,1,5)
 	local destination = string.sub(text,7)
-
-	
-	--print(command)
-	
-	--print(destination)
 	
 	if string.lower(command) == "!team" then
 		JoinTeam(ply,command,{destination})
 		return false
 	end
-
-	
-
 end
 
 hook.Add("PlayerSay","Grab Chat Commands",GetChatCommands)

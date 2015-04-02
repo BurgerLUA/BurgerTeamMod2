@@ -1,5 +1,6 @@
 function TeamDamageMod(victim,attacker)
 
+	local World = game.GetWorld( )
 	
 	if victim:HasGodMode() or GetConVarNumber("sbox_godmode") ~= 0 then
 		return false
@@ -10,7 +11,7 @@ function TeamDamageMod(victim,attacker)
 	if attacker:IsPlayer() then
 
 		if victim:Team() == attacker:Team() and victim:Team() ~= 1001 then
-		
+			--World.FriendlyFire = true
 			return false
 
 		end
