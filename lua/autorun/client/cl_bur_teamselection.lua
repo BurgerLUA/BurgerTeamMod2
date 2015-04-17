@@ -25,22 +25,28 @@ print("sv_bur_friendlyfire.lua loaded")
 
 local NextTime
 
---[[
-function ScoreNotify()
 
-	if not NextTime or NextTime < CurTime() then
+function TeammateGlow()
+
+	local Team = LocalPlayer():Team()
+
+	if Team ~= 1001 then
 	
-	
-	
-		chat.AddText("Cocks")
 		
-		
-		NextTime = CurTime() + 10
+		local TeamPlayers = team.GetPlayers(Team)
+		local TeamColor = team.GetColor(Team)
+		local BlurX = 5
+		local BlurY = 5
+		local Passes = 1
+		local Additive = true
+		local IgnoreZ = true
 	
+		halo.Add(TeamPlayers,TeamColor,BlurX,BlurY,Passes,Additive,IgnoreZ )
 	
 	end
+	
+
 
 end
 
-hook.Add("Think","Clientside Score Notify",ScoreNotify)
---]]
+hook.Add("HUDPaint","Clientside Score Notify",TeammateGlow)
