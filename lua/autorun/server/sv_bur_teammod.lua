@@ -33,33 +33,60 @@ concommand.Add( "JoinTeam", JoinTeam, TeamAutoComplete, "Join a Team", FCVAR_CLI
 
 function ForceTeam(ply,cmd,args)
 	--if ply:IsAdmin() == true or ply:IsSuperAdmin() == true then
-		local victim = player.GetAll()[tonumber(args[1])]
-		local num = tonumber(args[2])
+	
+		local StringName = tostring(args[1])
+		local TeamNumber = tonumber(args[2])
 		
-		if type(num) ~= "number" then return end
-	
-	
-		if not IsValid(victim) then 
-			ply:ChatPrint("INVALID PLAYER")
-			return
+		if type(StringName) ~= "string" then return end
+		if type(TeamNumber) ~= "number" then return end
+		
+		local PlayerTable = {}
+
+		for k,v in pairs(player.GetAll()) do
+			if StringName == "bot" then
+				if v:IsBot() then 
+					table.Add(PlayerTable,{v})
+				end
+			elseif StringName == "*" then
+				table.Add(PlayerTable,{v})
+			elseif FakePlayerTableFind(StringName,string.lower(v:Nick())) then
+				table.Add(PlayerTable,{v})
+			end
 		end
 		
-		if num > 4 or num == 0 then
-			victim:SetTeam(1001)
-		else
-			victim:SetTeam(Base + num)
+		for l,b in pairs(PlayerTable) do
+			if IsValid(b) then 
+				if TeamNumber > 4 or TeamNumber == 0 then
+					b:SetTeam(1001)
+				else
+					b:SetTeam(Base + TeamNumber)
+				end
+				
+				NotifyTeamChange(b)
+		
+			end
 		end
-		
-		NotifyTeamChange(victim)
-		
 
 
-		
-		
 	--end
 end
 
 concommand.Add( "ForceTeam", ForceTeam, TeamAutoComplete, "Join a Team", FCVAR_CLIENTCMD_CAN_EXECUTE )
+
+function FakePlayerTableFind(Needle,Haystack)
+
+	if not Needle then return end
+	if not Haystack then return end
+	
+	local Start, End = string.find(Haystack,Needle,0,true)
+	
+	if Start and End then
+		return true
+	else
+		return false
+	end
+
+end
 
 
 
