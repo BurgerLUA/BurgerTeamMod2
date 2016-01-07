@@ -22,8 +22,6 @@ function JoinTeam(ply,cmd,args)
 	else
 		ent:SetTeam(1001)
 	end
-
-	--print(team.GetName(ent:Team()))
 	
 	NotifyTeamChange(ent)
 
@@ -32,7 +30,7 @@ end
 concommand.Add( "JoinTeam", JoinTeam, TeamAutoComplete, "Join a Team", FCVAR_CLIENTCMD_CAN_EXECUTE )
 
 function ForceTeam(ply,cmd,args)
-	--if ply:IsAdmin() == true or ply:IsSuperAdmin() == true then
+	if ply:IsAdmin() == true or ply:IsSuperAdmin() == true then
 	
 		local StringName = tostring(args[1])
 		local TeamNumber = tonumber(args[2])
@@ -68,7 +66,7 @@ function ForceTeam(ply,cmd,args)
 		end
 
 
-	--end
+	end
 end
 
 concommand.Add( "ForceTeam", ForceTeam, TeamAutoComplete, "Join a Team", FCVAR_CLIENTCMD_CAN_EXECUTE )
@@ -88,17 +86,11 @@ function FakePlayerTableFind(Needle,Haystack)
 
 end
 
-
-
 function NotifyTeamChange(ply)
-
-	--print("Sending Message...")
-	
 	net.Start("TCCS")
 		net.WriteEntity( ply )
 		net.WriteInt(ply:Team(),16)
 	net.Broadcast()
-
 end
 
 util.AddNetworkString("TCCS")
@@ -112,6 +104,7 @@ function GetChatCommands(ply,text,teamChat)
 		JoinTeam(ply,command,{destination})
 		return false
 	end
+	
 end
 
 hook.Add("PlayerSay","Grab Chat Commands",GetChatCommands)
