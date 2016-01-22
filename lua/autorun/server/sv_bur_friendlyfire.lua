@@ -1,15 +1,3 @@
-function TeamDamageMod(victim,attacker)
-	if victim:HasGodMode() or GetConVarNumber("sbox_godmode") ~= 0 then
-		return false
-	elseif attacker:IsPlayer() then
-		if victim:Team() == attacker:Team() and victim:Team() ~= 1001 then
-			return false
-		end
-	end
-end
-
-hook.Add("PlayerShouldTakeDamage","Team Damage Mod", TeamDamageMod )
-
 function TeamchatOverride(listener,talker)
 	return true, false
 end
