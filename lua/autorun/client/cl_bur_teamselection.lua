@@ -38,29 +38,21 @@ function TeamModHUDPaint()
 					{x = x + 0,y = y + 0},
 				}
 				
-				
-				
-				
 				local XMin = ScrW()*0.2
 				local XMax = ScrW()*0.8
-				
 				local YMin = ScrH()*0.2
 				local YMax = ScrH()*0.8
-				
-				
-				
-				
+
 				if (x < XMax and x > XMin) and (y < YMax and y > YMin) then
 					IsVisible = true
 				end
-				
-
-				
-			
 
 				if IsVisible then
+					--print("Visible")
 					surface.SetDrawColor( TeamColor )
+					draw.NoTexture()
 					surface.DrawPoly( TriShape )
+					
 				else
 					x = math.Clamp(x,XMin,XMax)
 					y = math.Clamp(y,YMin,YMax)
