@@ -1,5 +1,5 @@
 AddCSLuaFile()
-
+--[[
 function TeamDamageMod(victim,attacker)
 	if victim:HasGodMode() or GetConVarNumber("sbox_godmode") ~= 0 then
 		return false
@@ -11,7 +11,7 @@ function TeamDamageMod(victim,attacker)
 end
 
 hook.Add("PlayerShouldTakeDamage","Team Damage Mod", TeamDamageMod )
-
+--]]
 
 
 local Base = 2000
