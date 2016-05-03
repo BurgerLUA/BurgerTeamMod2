@@ -108,5 +108,3 @@ function GetChatCommands(ply,text,teamChat)
 end
 
 hook.Add("PlayerSay","Grab Chat Commands",GetChatCommands)
-
-print("sv_bur_teamselection.lua loaded")

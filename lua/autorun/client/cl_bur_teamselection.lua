@@ -48,7 +48,6 @@ function TeamModHUDPaint()
 				end
 
 				if IsVisible then
-					--print("Visible")
 					surface.SetDrawColor( TeamColor )
 					draw.NoTexture()
 					surface.DrawPoly( TriShape )
@@ -72,11 +71,3 @@ function TeamModHUDPaint()
 end
 
 hook.Add("HUDPaint","TeamMod: Hud Paint",TeamModHUDPaint)
-
-
-
-
-
-
-
-print("sv_bur_teamselection.lua loaded")
